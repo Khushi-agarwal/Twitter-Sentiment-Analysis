@@ -27,10 +27,10 @@ app = Flask(__name__)
 # Main function here
 # ------------------
 
-consumer_key = "FoxhZf5AFjWHhDBggBkHgpbrx"
-consumer_secret = "kLnB5EjssvyMYYbbH1C13YJScOmy310OUDCuDANKiqYq9dHtqM"
-access_key= "1596558961758859264-jFbu3uG6pN8JeAL4NAkVlQqXfLGMJt"
-access_secret = "GCf3z6pQw6bLO74bd0meuvYlBOG9z3dH1FkMXxp4YJ7zg"
+consumer_key 
+consumer_secret =
+access_key=
+access_secret = 
  
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
