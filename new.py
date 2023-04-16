@@ -15,11 +15,8 @@ Created on Sat Nov 26 22:54:37 2022
 @author: khushiagarwal
 """
 """
-access token=1596558961758859264-54eoTdv0bgOc3bvATLq7hgTYNWt0zg
-access token secret=zfZM65WJkKpUwnliF6qF7NHexMKddg1d6PMql7H9ZIDsC
-api key="KYg1pMmz4ID9vdMMxtdybUiad"
-api key secret="CkaBYGtYZghGfjADHx81rWWPMCQGnSvMQF4RHpX2yVeWe29Zgk"
-bearer token=AAAAAAAAAAAAAAAAAAAAAOwPjwEAAAAAPoyWjAxQ3lRPWuT9qxyPs65wKDg%3D6kYl5ZAOrJpA4PkjtyjEdlSDqzoXT0ewfegGUXsXsfr89mJp5u
+
+
 """
 
  
@@ -69,11 +66,7 @@ def clean(tweets):
     return copy
 
 """
-consumer_key = "KYg1pMmz4ID9vdMMxtdybUiad"
-consumer_secret = "CkaBYGtYZghGfjADHx81rWWPMCQGnSvMQF4RHpX2yVeWe29Zgk"
-access_key= "1596558961758859264-54eoTdv0bgOc3bvATLq7hgTYNWt0zg"
-access_secret = "zfZM65WJkKpUwnliF6qF7NHexMKddg1d6PMql7H9ZIDsC"
- 
+
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
 
