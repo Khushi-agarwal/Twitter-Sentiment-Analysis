@@ -25,7 +25,9 @@ bearer token=AAAAAAAAAAAAAAAAAAAAAOwPjwEAAAAAPoyWjAxQ3lRPWuT9qxyPs65wKDg%3D6kYl5
  
 import pandas as pd
 import csv
-
+from PIL import Image
+import base64
+from io import BytesIO
 import string
 import preprocessor as p
 from textblob import TextBlob
@@ -121,17 +123,18 @@ def pola(tweets_copy):
     return df
 
 def plot2(df):
-    print(df)
-   
     plt.figure(figsize=(8,6))
     for i in range(0,df.shape[0]):
-       
         plt.scatter(df['Polarity'][i],df['Subjectivity'][i],color="Red")
+
+    
 
     plt.title('Sentiment')
     plt.xlabel('Polarity')
     plt.ylabel('Subjectivity')
     plt.show()
+    #plt.savefig('static/images/analysis.png')
+ 
     print("I am plot")
     positive=df[df.Analysis=='Positive']
     positive=positive['Tweets']
@@ -139,12 +142,20 @@ def plot2(df):
     plt.title('Review')
     plt.xlabel('Sentiment')
     plt.ylabel('Count')
-    df['Analysis'].value_counts().plot(kind='pie')
-    plt.show()
-    x=[1,2,3]
-    y=[3,4,5]
-    plt.plot(x,y)
-    plt.show()
+    df['Analysis'].value_counts().plot(kind='bar')
+    plt.savefig('static/images/result.jpg')
+    im=Image.open("static/images/result.jpg")
+    data=BytesIO()
+    im.save(data,"JPEG")
+    encoded_img_data=base64.b63encode(data.getValue())
+    
+    
+    
+    
+   
+    
+    
+    
 
     
     #print("Total Tweets fetched:", len(tweets_copy))
@@ -162,6 +173,21 @@ def plot2(df):
     
  
 """
+ plt.figure(figsize=(8,6))
+       for i in range(0,df.shape[0]):
+           plt.scatter(df['Polarity'][i],df['Subjectivity'][i],color='Blue')
+       plt.title('Sentiment Analysis')
+       plt.xlabel('Polarity')
+       plt.ylabel('Subjectivity')
+       img=BytesIO()
+       plt.savefig('img',format='png')
+       plt.close()
+       img.seek(0)
+       buffer = b''.join(img)
+       b2 = base64.b64encode(buffer)
+       plot_url=b2.decode('utf-8')
+
+    
 username_tweets = tweepy.Cursor(api.search_tweets, q="@elonmusk", tweet_mode='extended').items(5)
 for tweet in username_tweets:
     text = tweet._json["full_text"]
