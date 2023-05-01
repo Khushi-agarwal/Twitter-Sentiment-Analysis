@@ -15,8 +15,11 @@ Created on Sat Nov 26 22:54:37 2022
 @author: khushiagarwal
 """
 """
-
-
+access token=1596558961758859264-54eoTdv0bgOc3bvATLq7hgTYNWt0zg
+access token secret=zfZM65WJkKpUwnliF6qF7NHexMKddg1d6PMql7H9ZIDsC
+api key="KYg1pMmz4ID9vdMMxtdybUiad"
+api key secret="CkaBYGtYZghGfjADHx81rWWPMCQGnSvMQF4RHpX2yVeWe29Zgk"
+bearer token=AAAAAAAAAAAAAAAAAAAAAOwPjwEAAAAAPoyWjAxQ3lRPWuT9qxyPs65wKDg%3D6kYl5ZAOrJpA4PkjtyjEdlSDqzoXT0ewfegGUXsXsfr89mJp5u
 """
 
  
@@ -39,10 +42,11 @@ def analysis(score):
         return 'Neutral'
     else:
        return 'Positive'
-def clean(tweets):
+def clean1(tweets):
     
     copy=[]
     for tweet in tweets:
+       
    
         """
         text=tweet.text
@@ -66,7 +70,11 @@ def clean(tweets):
     return copy
 
 """
-
+consumer_key = "KYg1pMmz4ID9vdMMxtdybUiad"
+consumer_secret = "CkaBYGtYZghGfjADHx81rWWPMCQGnSvMQF4RHpX2yVeWe29Zgk"
+access_key= "1596558961758859264-54eoTdv0bgOc3bvATLq7hgTYNWt0zg"
+access_secret = "zfZM65WJkKpUwnliF6qF7NHexMKddg1d6PMql7H9ZIDsC"
+ 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
 
@@ -111,14 +119,16 @@ def pola(tweets_copy):
 
     df['Subjectivity']=subject
     df['Polarity']=pol
-    df['Analysis']=df['Polarity'].apply(analysis)
     print(df)
+    df['Analysis']=df['Polarity'].apply(analysis)
+    
     return df
 
 def plot2(df):
+    
     plt.figure(figsize=(8,6))
     for i in range(0,df.shape[0]):
-        plt.scatter(df['Polarity'][i],df['Subjectivity'][i],color="Red")
+        plt.scatter(df['Polarity'][i],df['Subjectivity'][i],color="Blue")
 
     
 
@@ -126,22 +136,21 @@ def plot2(df):
     plt.xlabel('Polarity')
     plt.ylabel('Subjectivity')
     plt.show()
-    #plt.savefig('static/images/analysis.png')
+    plt.savefig('static/images/analysis.jpg')
  
-    print("I am plot")
-    positive=df[df.Analysis=='Positive']
-    positive=positive['Tweets']
+    
     df['Analysis'].value_counts()
     plt.title('Review')
     plt.xlabel('Sentiment')
     plt.ylabel('Count')
-    df['Analysis'].value_counts().plot(kind='bar')
+    df['Analysis'].value_counts().plot(kind='pie')
     plt.savefig('static/images/result.jpg')
+    
     im=Image.open("static/images/result.jpg")
     data=BytesIO()
     im.save(data,"JPEG")
-    encoded_img_data=base64.b63encode(data.getValue())
-    
+    encoded_img_data=base64.b64encode(data.getvalue())
+    return encoded_img_data
     
     
     

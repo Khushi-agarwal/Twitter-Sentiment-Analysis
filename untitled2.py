@@ -11,9 +11,9 @@ from flask import Flask, request, render_template
 import pandas as pd
 import joblib
 import tweepy
-from new import clean
-from new import pola
-from new import plot2
+from new import *
+#from new import pola
+#from new import plot2
 import os
 import base64
 from io import BytesIO
@@ -27,10 +27,10 @@ app = Flask(__name__)
 # Main function here
 # ------------------
 
-consumer_key 
-consumer_secret =
-access_key=
-access_secret = 
+consumer_key = "FoxhZf5AFjWHhDBggBkHgpbrx"
+consumer_secret = "kLnB5EjssvyMYYbbH1C13YJScOmy310OUDCuDANKiqYq9dHtqM"
+access_key= "1596558961758859264-jFbu3uG6pN8JeAL4NAkVlQqXfLGMJt"
+access_secret = "GCf3z6pQw6bLO74bd0meuvYlBOG9z3dH1FkMXxp4YJ7zg"
  
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
@@ -60,7 +60,7 @@ def main():
       """
        
        
-    return render_template("index.html")
+    return render_template("newindex.html")
     
  #search query, whatever we want to search
 
@@ -73,22 +73,15 @@ def result():
     # If a form is submitted
     #if request.method == "POST":
     search_query = request.form.get("search")
+    count=int(request.form.get("count"))
     tweets = tweepy.Cursor(api.search_tweets,
               q=search_query,
               lang="en",
-              ).items(10)
-    tweets_copy=clean(tweets)
+              ).items(count)
+   # print(tweets)
+    tweets_copy=clean1(tweets)
     df= pola(tweets_copy)
-    df['Analysis'].value_counts()
-    plt.title('Review')
-    plt.xlabel('Sentiment')
-    plt.ylabel('Count')
-    df['Analysis'].value_counts().plot(kind='pie')
-    plt.savefig('static/images/result.jpg')
-    im=Image.open("static/images/result.jpg")
-    data=BytesIO()
-    im.save(data,"JPEG")
-    encoded_img_data=base64.b64encode(data.getvalue())
+    encoded_img_data=plot2(df)
        #plot_url = base64.b64encode(img.getvalue()).decode('utf8')
      
     return render_template('results.html',img_data=encoded_img_data.decode('utf-8'))
