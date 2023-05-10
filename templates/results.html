@@ -1,23 +1,81 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Twitter Sentiment Analysis Results</title>
-	<style>
-		.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-	</style>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+		.header {
+        background-color: #0077b6;
+        color: white;
+        padding: 20px;
+        text-align: center;
+
+      }
+	  .graph {
+        width: 550px;
+        height: 300px;
+        margin: 20px;
+        float: left;
+      }
+	  .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+	  }
+    </style>
 </head>
 <body>
-
-	   <img id="picture" src="data:image/jpeg;base64,{{img_data}}" class="center">
-
-	   
-		
+	<div class="header">
+		<h1>Twitter Sentiment Analysis Results</h1>
+		<h2>Results</h2>
 	
+	<div>
+		<div style="display: inline-block; width: 33%; text-align: center;">
+		  <img id="picture1" src="data:image/jpeg;base64,{{img_bar}}" style="width: 100%;">
+		  <p>Bar graph</p>
+		</div>
+		<div style="display: inline-block; width: 33%; text-align: center;">
+		  <img id="picture" src="data:image/jpeg;base64,{{img_data}}" style="width: 100%;">
+		  <p>Pie chart</p>
+		</div>
+		<div style="display: inline-block; width: 33%; text-align: center;">
+		  <img src="data:image/jpeg;base64,{{img_subpo}}" style="width: 100%;">
+		  <p>Subjectivity-Polarity</p>
+		</div>
+	  </div>
+	  </div>
+    <h1>Total number of tweets fetched:{{count}}</h1>
+    <table>
+        <thead>
+            <tr>
+                {% for column in df.columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in df.values %}
+                <tr>
+                    {% for value in row %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 	
+
 </body>
 </html>

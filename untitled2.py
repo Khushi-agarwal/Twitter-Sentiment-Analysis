@@ -81,10 +81,14 @@ def result():
    # print(tweets)
     tweets_copy=clean1(tweets)
     df= pola(tweets_copy)
+    encoded_img_bar=bar(df)
     encoded_img_data=plot2(df)
+    encoded_img_subpo=subpo(df)
+    num_rows,num_cols=df.shape
+   
        #plot_url = base64.b64encode(img.getvalue()).decode('utf8')
      
-    return render_template('results.html',img_data=encoded_img_data.decode('utf-8'))
+    return render_template('results.html',img_bar=encoded_img_bar.decode('utf-8'),img_data=encoded_img_data.decode('utf-8'),img_subpo=encoded_img_subpo.decode('utf-8'),count=num_rows,df=df)
 """
 @app.after_request
 def delete(response):

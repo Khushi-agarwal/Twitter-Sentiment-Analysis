@@ -124,26 +124,33 @@ def pola(tweets_copy):
     
     return df
 
+def bar(df):
+    df['Analysis'].value_counts()
+    plt.title('Sentiment Analysis')
+    plt.xlabel('Sentiment')
+    plt.ylabel('Counts')
+    analysis_counts=df['Analysis'].value_counts()
+    plt.figure()
+    plt.bar(analysis_counts.index,analysis_counts.values)
+    plt.savefig('static/images/bar.jpg')
+    im=Image.open("static/images/bar.jpg")
+    data=BytesIO()
+    im.save(data,"JPEG")
+    encoded_img_bar=base64.b64encode(data.getvalue())
+    return encoded_img_bar
+
 def plot2(df):
     
-    plt.figure(figsize=(8,6))
-    for i in range(0,df.shape[0]):
-        plt.scatter(df['Polarity'][i],df['Subjectivity'][i],color="Blue")
 
-    
-
-    plt.title('Sentiment')
-    plt.xlabel('Polarity')
-    plt.ylabel('Subjectivity')
-    plt.show()
-    plt.savefig('static/images/analysis.jpg')
- 
-    
-    df['Analysis'].value_counts()
-    plt.title('Review')
-    plt.xlabel('Sentiment')
-    plt.ylabel('Count')
-    df['Analysis'].value_counts().plot(kind='pie')
+    plt.title('Sentiment Analysis')
+    #plt.xlabel('Sentiment')
+   # plt.ylabel('Counts')
+    analysis_counts=df['Analysis'].value_counts()
+    #plt.bar(analysis_counts.index,analysis_counts.values)
+    #df['Analysis'].value_counts().plot(kind='pie')
+    plt.figure()
+    plt.pie(analysis_counts.values,labels=analysis_counts.index,autopct='%1.1f%%')
+    plt.axis('equal')
     plt.savefig('static/images/result.jpg')
     
     im=Image.open("static/images/result.jpg")
@@ -152,7 +159,22 @@ def plot2(df):
     encoded_img_data=base64.b64encode(data.getvalue())
     return encoded_img_data
     
+def subpo(df):
+    plt.figure()
+    plt.scatter(df['Polarity'],df['Subjectivity'])
+    plt.title('Subjectivity vs Polarity')
+    plt.xlabel('Polarity')
+    plt.ylabel('Subjectivity')
+    plt.savefig('static/images/subpo.jpg')
+    im=Image.open("static/images/subpo.jpg")
+    data=BytesIO()
+    im.save(data,"JPEG")
+    encoded_img_subpo=base64.b64encode(data.getvalue())
+    return encoded_img_subpo
+
+
     
+
     
    
     
